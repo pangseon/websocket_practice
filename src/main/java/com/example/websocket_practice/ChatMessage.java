@@ -1,47 +1,16 @@
 package com.example.websocket_practice;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
-@Entity
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class ChatMessage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long messageId;
 
-    @Column(nullable = false)
-    private String content;
-
-    @Column(nullable = false)
-    private LocalDateTime sendTime;
-
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private Member sender;
-
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private ChatRoom chatRoom;
-
-    public void setSender(Member sender) {
-        this.sender = sender;
+    public enum MessageType{
+        ENTER, TALK, MATCH, EXIT, MATCH_REQUEST;
     }
 
-    public void setChatRoom(ChatRoom chatRoom) {
-        this.chatRoom = chatRoom;
-    }
+    private MessageType type;
+    private String roomId;
+    private String sender;
+    private String message;
 }

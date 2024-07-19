@@ -6,33 +6,32 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 public class ChatRoom {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String roomId;
+    private String name;
+    private List<ChatMessage> messages;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private Member sender;
 
-    @ManyToOne
-    @JoinColumn(name = "receiver_id")
-    private Member receiver;
-
-    public void setSender(Member sender){
-        this.sender = sender;
+    public static ChatRoom create(String name){
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.roomId = UUID.randomUUID().toString();
+        return chatRoom;
     }
-    public void setReceiver(Member receiver){
-        this.receiver = receiver;
+    public void addMessage(ChatMessage message) {
+        messages.add(message);
     }
+
+    public List<ChatMessage> getMessages() {
+        return messages;
+    }
+
 }

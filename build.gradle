@@ -30,6 +30,7 @@ dependencies {
     // redist 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
